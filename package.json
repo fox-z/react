@@ -4,7 +4,7 @@
   "description": "自己搭建的react项目目录、",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack/webpack.dev.config.js --open",
+    "dev": "webpack-dev-server --open",
     "build": "webpack"
   },
   "author": "gourd",

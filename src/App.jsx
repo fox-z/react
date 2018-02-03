@@ -1,10 +1,10 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-
-export default class App extends React.component {
+import { provider  } from 'react-router-dom'
+import routerConfig from './routers'
+export default class App extends React.Component {
   render(){
     return(
-      <div></div>
+      <div>我是app页面</div>
     )
   }
 }
