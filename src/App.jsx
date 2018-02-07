@@ -1,10 +1,13 @@
 import React from 'react'
-import { provider  } from 'react-router-dom'
-import routerConfig from './routers'
+import { Navlink } from 'react-router-dom'
+
+
 export default class App extends React.Component {
   render(){
     return(
-      <div>我是app页面</div>
+      <div className="App">
+        { this.props.children }
+      </div>
     )
   }
 }

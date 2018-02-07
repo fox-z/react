@@ -1,17 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router , Route , IndexRoute } from 'react-router-dom'
+import Routers from './routers/index.jsx'
+import store from './store/'
+import { Provider } from 'react-redux'
 import App from './App'
 
-import test from './views/test'
+// 公共样式引入
+import './styles/base.scss'
+
 const el = document.getElementById('root')
 
 ReactDOM.render(
-  <Router history="" pathname="/">
-		<Route path="/" component={ App }>
-			<IndexRoute path="/test" component={ test } />
-		</Route>
-		{/*<Route path="/notfind" component={ notFind }/>*/}
-	</Router>,
+	<Provider store={ store }>
+		<App>
+			<Routers /> 
+		</App>
+	</Provider>	
+	,
   el
 )
