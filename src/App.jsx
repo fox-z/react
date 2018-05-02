@@ -1,13 +1,17 @@
 import React from 'react'
-import { Navlink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-
-export default class App extends React.Component {
-  render(){
-    return(
-      <div className="App">
-        { this.props.children }
-      </div>
-    )
+class App extends React.Component {
+    render (){
+      return (
+          <div>
+            <Link to='/test'>测试页面</Link><br/>
+            <Link to='/'>首页</Link><br/>
+            <Link to='/404'>404页面</Link><br/>
+              {this.props.children}
+          </div>
+      )
   }
 }
+
+export default App

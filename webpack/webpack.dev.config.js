@@ -3,29 +3,35 @@ var webpack = require('webpack')
 var merge = require('webpack-merge')
 var webpackBaseConfig = require('./webpack.base.config')
 var htmlWebpackPlugin = require('html-webpack-plugin')
-
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 module.exports = merge( webpackBaseConfig , {
 	plugins : [
 		new webpack.DefinePlugin({
-			"process.env.NODE_ENV" : "dev"
+			"process.env.NODE_ENV" : "'dev'"
 		}),
 		new webpack.HotModuleReplacementPlugin(), // 热加载
 		new webpack.NamedModulesPlugin(), // 控制台显示正确的文件名
 		new webpack.NoEmitOnErrorsPlugin(), // 编译出错的时候 跳过输出阶段，确保输出资源不会包含错误
-		new htmlWebpackPlugin({
-			filename : 'index.html' , // 用来输出文件名
-			template : path.resolve(__dirname,'../index.html') , // 模板文件路劲
-			favicon :  path.resolve(__dirname, '../favicon.ico')  , // 小图标
-			inject : true,  // 默认注入所有的资源到 body 中   body || head
-			title : 'gourd | 个人网站', // 网站标题
-			// metaKeywords : '张梦辉,vue,vue-cli,html5,css3,javascript,react,react-native,weex,node,webpack,ECMAscript6,jQuery,zepto',
-			// metaDescription : '张梦辉,vue,vue-cli,html5,css3,javascript,react,react-native,weex,node,webpack,ECMAscript6,jQuery,zepto'
-		})
+        new htmlWebpackPlugin({
+            template: 'index.html'
+        }),
+        new OpenBrowserPlugin({
+            url: 'http://localhost:8080'
+        }),
 	],
 	devServer : {
-		contentBase : path.resolve(__dirname , './dist') , // 不配置静态资源目录 转而使用新的插件 CopyWebpackPlugin
 		compress : true,
-		host : 'localhost',
-		port : 6666
+        proxy: {
+            // 凡是 `/api` 开头的 http 请求，都会被代理到 localhost:3000 上，由 koa 提供 mock 数据。
+            // koa 代码在 ./mock 目录中，启动命令为 npm run mock
+            '/api': {
+                target: 'http://localhost:3000',
+                secure: false
+            }
+        },
+        contentBase: "../dist", //本地服务器所加载的页面所在的目录
+        historyApiFallback: true, //不跳转
+        inline: true, //实时刷新
+        hot: true  // 使用热加载插件 HotModuleReplacementPlugin
 	}
 })

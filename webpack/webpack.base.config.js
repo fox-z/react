@@ -1,5 +1,4 @@
 var path = require('path')
-var fs = require('fs')
 
 module.exports = {
 	entry : {
@@ -8,7 +7,13 @@ module.exports = {
 	output : {
 		path : path.resolve(__dirname , '../dist'),
 		filename : '[name].js',
-		publicPath : 'temp/'
+    chunkFilename: "[name]"
+	},
+	resolve: {
+		extensions: ['.jsx', '.js', '.json'],
+		alias: {
+
+		}
 	},
 	module:{
 		rules : [
